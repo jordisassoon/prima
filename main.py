@@ -2,11 +2,11 @@ import click
 import pandas as pd
 import numpy as np
 
-from utils.dataloader import PollenDataLoader
-from PyLaeo.validation.cross_validate import run_grouped_cv
+from utils.dataloader import ProxyDataLoader
+from validation.cross_validate import run_grouped_cv
 from models.mat import MAT
 from models.brt import BRT
-from models.wa_pls import WA_PLS
+# from models.wa_pls import WA_PLS
 from models.rf import RF
 
 
@@ -67,7 +67,7 @@ def main(
     np.random.seed(seed)
 
     # --- Load data ---
-    loader = PollenDataLoader(train_climate, train_pollen, test_pollen, taxa_mask)
+    loader = ProxyDataLoader(train_climate, train_pollen, test_pollen, taxa_mask)
     X_train, y_train, obs_names = loader.load_training_data(target=target)
     X_test, ages = loader.load_test_data()
     X_train_aligned, X_test_aligned = loader.align_taxa(X_train, X_test)
